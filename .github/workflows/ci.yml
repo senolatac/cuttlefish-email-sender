@@ -7,7 +7,7 @@ on:
 
 jobs:
   docker:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -16,9 +16,6 @@ jobs:
         uses: dawidd6/action-get-tag@v1
         with:
           strip_v: true
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -29,16 +26,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Install V8
-        run: | 
-          sudo apt install libcurl4-openssl-dev
-          sudo apt install libv8-dev
-
       - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: dockerfiles/web
-          push: true
-          platforms: linux/amd64,linux/arm64
-          tags: satac/cuttlefish:latest, satac/cuttlefish:${{steps.tag.outputs.tag}}
+        run: |
+          docker buildx build --push \
+            --tag satac/cuttlefish:${{steps.tag.outputs.tag}} \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 . -f dockerfiles/web
