@@ -60,7 +60,7 @@ services:
       # The username and password are actually ignore by mailcatcher but need
       # to be set to keep this container happy
       - SMTP_USERNAME=shagames42@gmail.com
-      - SMTP_PASSWORD="ahxb sjrx fthe oplv"
+      - SMTP_PASSWORD="xxxxx"
       - SERVER_HOSTNAME=cuttlefish.io
     volumes:
       - ./postfix_log:/var/log:cached
