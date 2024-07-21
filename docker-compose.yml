@@ -1,7 +1,6 @@
 version: '3'
 services:
   web:
-    platform: linux/amd64
     image: senolnar/cuttlefish:0.0.1
     volumes:
       - .:/app:cached
@@ -24,7 +23,6 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   smtp:
-    platform: linux/amd64
     image: senolnar/cuttlefish:0.0.1
     command: bundle exec rake cuttlefish:smtp
     volumes:
@@ -39,7 +37,6 @@ services:
     image: redis:4.0
 
   worker:
-    platform: linux/amd64
     image: senolnar/cuttlefish:0.0.1
     command: bundle exec sidekiq
     volumes:
@@ -66,7 +63,6 @@ services:
       - ./postfix_log:/var/log:cached
 
   log:
-    platform: linux/amd64
     image: senolnar/cuttlefish:0.0.1
     command: bundle exec rake cuttlefish:log
     volumes:
