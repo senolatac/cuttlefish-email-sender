@@ -29,6 +29,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Install V8
+        run: | 
+          sudo apt install libcurl4-openssl-dev
+          sudo apt install libv8-dev
+
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
